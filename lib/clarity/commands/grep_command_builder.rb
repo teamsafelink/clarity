@@ -1,3 +1,4 @@
+require "shellwords"
 class GrepCommandBuilder
 
   # parameter names
@@ -23,9 +24,9 @@ class GrepCommandBuilder
   def command
     results = []
     exec_functions.each_with_index do |cmd, index|
-      results << cmd.gsub('filename', filename.to_s).gsub('options', options.to_s).gsub('term', terms[index].to_s)
+      results << cmd.gsub('filename', filename.to_s.shellescape).gsub('options', options.to_s.shellescape).gsub('term', terms[index].to_s.shellescape)
     end
-    %[sh -c '#{results.join(" | ")}']
+    %[sh -c '#{results.join(" | ").shellescape}']
   end
 
 
