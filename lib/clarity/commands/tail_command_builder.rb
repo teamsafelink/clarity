@@ -1,6 +1,7 @@
 # 
 # Handles tailing of log files
 #
+require "shellwords"
 class TailCommandBuilder < GrepCommandBuilder
   
   def valid?
@@ -8,13 +9,13 @@ class TailCommandBuilder < GrepCommandBuilder
     true
   end
   
-    def command
+  def command
     results = []
     exec_functions.each_with_index do |cmd, index|
       if index == 0
-        results << cmd.gsub('filename', filename.to_s)
+        results << cmd.gsub('filename', filename.to_s.shellescape)
       else
-        results << cmd.gsub('filename', filename.to_s).gsub('options', options.to_s).gsub('term', terms[index-1].to_s)
+        results << cmd.gsub('filename', filename.to_s.shellescape).gsub('options', options.to_s.shellescape).gsub('term', terms[index-1].to_s.shellescape)
       end
     end
     %[sh -c '#{results.join(" | ")}']

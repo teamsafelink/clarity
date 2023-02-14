@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    eventmachine (1.2.7)
+    eventmachine_httpserver (0.2.1)
+    json (2.6.3)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  eventmachine
+  eventmachine_httpserver
+  json
+
+BUNDLED WITH
+   2.2.3
